@@ -1,6 +1,8 @@
 rm -rf build
 mkdir build
 cd build
+
+#setup ATLAS using Python2 defaults
 setupATLAS -2
 asetup AnalysisBase,21.2.125,here
 cmake ../ftt
@@ -9,5 +11,14 @@ make
 cd ..
 source build/x*/setup.sh
 cd ftt
-rm -rf submit
+
+#if the submit directory exists, do:
+$WORKING_DIR=submit
+if [ -d "$WORKING_DIR" ]; then rm -rf $WORKING_DIR; fi
+
+#set up for grid use
+voms-proxy-ietup rucio
+lsetup pandait --voms atlas
+lsetup rucio
+lsetup panda
 Ftagtt/grid/grid-submit.sh main
