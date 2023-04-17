@@ -1,0 +1,13 @@
+rm -rf build
+mkdir build
+cd build
+setupATLAS -2
+asetup AnalysisBase,21.2.125,here
+cmake ../ftt
+make
+#make clean
+cd ..
+source build/x*/setup.sh
+cd ftt
+rm -rf submit
+Ftagtt/grid/grid-submit.sh main
